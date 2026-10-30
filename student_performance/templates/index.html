@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Performance Prediction System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Student Performance Prediction</h1>
+    <p>Enter a student’s current record. Linear Regression estimates the final marks and a Decision Tree assigns a performance level.</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Student record</h2>
+      <form id="predictForm">
+        <label>Name <input name="name" type="text" placeholder="e.g. Sita Sharma"></label>
+        <label>Study hours per day <input name="study_hours" type="number" step="0.5" min="0" max="16" required></label>
+        <label>Attendance (%) <input name="attendance" type="number" min="0" max="100" required></label>
+        <label>Previous exam marks (%) <input name="previous_marks" type="number" min="0" max="100" required></label>
+        <label>Assignment score (%) <input name="assignment_score" type="number" min="0" max="100" required></label>
+        <button type="submit">Predict performance</button>
+      </form>
+      <p id="error" class="error" hidden></p>
+    </section>
+
+    <section class="panel result" id="result" hidden>
+      <h2>Prediction</h2>
+      <div class="marks"><span id="marks">0</span><small>/ 100 predicted marks</small></div>
+      <p>Performance level: <strong id="level"></strong></p>
+      <p id="advice"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Model quality</h2>
+      <dl id="metrics"></dl>
+      <button id="retrain" class="secondary">Retrain from database</button>
+    </section>
+
+    <section class="panel wide">
+      <h2>Recent predictions</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Name</th><th>Study h</th><th>Attend.</th><th>Prev.</th><th>Assign.</th><th>Marks</th><th>Level</th><th>Time</th></tr></thead>
+          <tbody id="history"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
